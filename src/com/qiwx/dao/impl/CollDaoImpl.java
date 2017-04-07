@@ -14,14 +14,13 @@ import com.qiwx.util.DBUtils;
 
 /**
  * @Author qiwx
- * @time 2017年4月6日 下午5:47:42
+ * @time 2017-4-6 5:47:42
  * @Des
  **/
 public class CollDaoImpl implements CollDao {
 
 	@Override
 	public void save(CollectionBean bean) {
-
 		String sql = "insert into CollectionTbl(name,url)values(?,?)";
 		DBUtils db = new DBUtils();
 		Connection conn = db.getConnection();
@@ -32,7 +31,7 @@ public class CollDaoImpl implements CollDao {
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
+		} finally {	
 			db.closeDb(conn);
 		}
 
@@ -79,7 +78,7 @@ public class CollDaoImpl implements CollDao {
 	}
 
 	@Override
-	public List list() {
+	public List<CollectionBean> list() {
 		String sql = "select * from CollectionTbl";
 		DBUtils db = new DBUtils();
 		Connection conn = db.getConnection();
@@ -88,12 +87,12 @@ public class CollDaoImpl implements CollDao {
 			ResultSet rs = stmt.executeQuery(sql);
 
 			if (rs != null) {
-				List list=new ArrayList();
+				List<CollectionBean> list = new ArrayList<CollectionBean>();
 				while (rs.next()) {
-					int id=rs.getInt(1);
-					String url=rs.getString(2);
-					String name=rs.getString(3);
-					CollectionBean bean=new CollectionBean();
+					int id = rs.getInt(1);
+					String url = rs.getString(2);
+					String name = rs.getString(3);
+					CollectionBean bean = new CollectionBean();
 					bean.setId(id);
 					bean.setUrl(url);
 					bean.setName(name);
@@ -108,6 +107,38 @@ public class CollDaoImpl implements CollDao {
 			db.closeDb(conn);
 		}
 
+		return null;
+	}
+	@Override
+	public CollectionBean get(int id) {
+
+		String sql = "select * from CollectionTbl where id=?";
+		DBUtils db = new DBUtils();
+		Connection conn = db.getConnection();
+		try {
+
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs != null) {
+				CollectionBean bean = new CollectionBean();
+				while (rs.next()) {
+					String url = rs.getString(2);
+					String name = rs.getString(3);
+					bean.setId(id);
+					bean.setUrl(url);
+					bean.setName(name);
+
+				}
+				return bean;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.closeDb(conn);
+		}
 		return null;
 	}
 }

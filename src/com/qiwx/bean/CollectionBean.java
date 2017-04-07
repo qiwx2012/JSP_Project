@@ -1,12 +1,12 @@
 package com.qiwx.bean;
 /**
  * @Author qiwx
- * @time 2017年4月6日 下午5:41:47
+ * @time 2017-4-6  5:41:47
  * @Des
  **/
 
 /*
- * 创建表sql语句 create table CollectionTbl( id int not null auto_increment primary
+ *  create table CollectionTbl( id int not null auto_increment primary
  * key, url varchar(100) ,name varchar(50)); Query OK, 0 rows affected (0.25
  * sec)
  */

@@ -6,7 +6,7 @@ import com.qiwx.bean.CollectionBean;
 
 /**
  * @Author qiwx
- * @time 2017年4月6日 下午5:45:02
+ * @time 2017-4-6 5:45:02
  * @Des
  **/
 public interface CollDao {
@@ -14,6 +14,8 @@ public interface CollDao {
 	public void save(CollectionBean bean);
 	public void update(CollectionBean bean);
 	public void delete(String[] ids);
-	public List list();
+	public List<CollectionBean> list();
+	public CollectionBean get(int id);
+	
 
 }
