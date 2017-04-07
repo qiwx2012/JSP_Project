@@ -10,4 +10,113 @@
        （1）实现接口 Tag 并实现它的方法
        （2）继承 类 TagSupport并实现 doEndTag()方法（推荐），此类中有一个 pageContext的内置对象 
        （3）配置tld文件
-       （4）在需要使用jsp的地方导入， <%@ taglib uri="http://www.abc.com" prefix="h" %>，uri为tld配置文件里配置的uri地址        
+       （4）在需要使用jsp的地方导入， <%@ taglib uri="http://www.abc.com" prefix="h" %>，uri为tld配置文件里配置的uri地址    
+       
+       
+ 
+       
+一、JSP脚本元素
+1、声明-用于在JSP 中声明合法的变量和方法
+    语法:<%! 代码内容%>
+    例子：<%! 
+               int name="james";
+               
+               public void test(){
+                   System.out.println("----");
+               }
+    
+2、表达式-计算该表达式，将其结果转换成字符串插入到输出中
+
+
+     语法：<%=  表达式%>
+     例子：current time:：<%= new java.util.Date()%>
+
+3、脚本-位于<%和%>之间的代码，它是合法的Java代码
+     语法:<% 程序代码，一行或多行%>
+     例子：<% 
+              for(int i=0;i<10;i++){
+                  ...
+              }
+    
+            %>
+            
+二、JSP指令元素
+  
+1、page指令-指令指明与JSP容器的沟通方式 
+     语法：<%@ page   %>
+    
+2、include指令-是在JSP页面被转换成Servlet之前将指定的文件包含进来。这种特性允许你创建可重用的导航栏、联系人信息部分、页面计数等
+     语法：<%@include file="fileURL"%> 
+     
+3、tablib指令-用于导入标签库
+     语法：<%@tablib uri="uri" prefix="c"%> 
+     
+三、动作元素
+
+1、<jsp: include>-在用户请求时包含文件（动态包含）
+    例子：
+         <body>
+             <h1>包含页面</h1>
+             <jsp:include page="include.jsp" flush="true"></jsp:include>
+         </body>
+    备注：Include指令和Include动作的比较:
+          指令执行速度相对较快，灵活性较差（只编译一个文件，但是一旦有一个文件发生变化，两个文件都要重新编译）
+          动作执行速度相对较慢，灵活性较高
+          在使用时，如果是静态页面，则使用Include指令；如果是动态页面，则使用Include动作。
+         
+2、<jsp: param>/<jsp: params>-传递参数
+    例子：
+        <body>
+        <h1>包含页面</h1>
+           <jsp:include page="include.jsp" flush="true">
+               <jsp:param value="smyhvae" name="name"/>
+           </jsp:include>
+        </body>
+    备注：该动作元素不能单独使用，可以配合include标签使用。在本页面将name字段的value传递给include.jsp页面，在include页面可以通过getParameter("name")方法获取Value;
+    
+3、<jsp: forward>-服务器端的跳转（转发带请求的数据，URL地址不变）
+    例子：
+      <body>
+          <jsp:forward page="forward.jsp"></jsp:forward>
+      </body>
+      备注：浏览器地址栏中只会显示转发给forward.jsp的jsp的路径地址，只会显示forward的内容。
+      
+4、<jsp: useBean>-创建一个Bean实例并指定它的名字和作用范围
+    
+    例子：
+        <jsp:useBean id="person" class="com.vae.bean.Person">
+        </jsp:useBean>
+        
+    备注：
+       是一个公有类。
+       具有一个公有的不带参数构造方法。
+       每个属性必须定义一组getXXX()和setXXX()方法， 以便读取和存储其属性值。
+       
+5、<jsp: setProperty ···/>和<jsp: getProperty ···/>
+    
+    例子：
+        <body>
+    <h2>方式一：useBean动作元素（不推荐）</h2>
+    <%--创建对象 调用默认的构造方法，要求类必须有默认的构造方法--%>
+    <jsp:useBean id="person" class="com.vae.bean.Person">
+    </jsp:useBean>
+    <%--设置 对象的属性值--%>
+    <jsp:setProperty property="name" name="person" value="生命壹号" />
+    <jsp:setProperty property="age" name="person" value="22" />
+    <%--获取对象的属性值 --%>
+    <jsp:getProperty property="name" name="person" />
+    <jsp:getProperty property="age" name="person" />
+
+    <h2>方式二：采用片段的方式，即插入Java代码（推荐使用）</h2>
+    <%
+        com.vae.bean.Person p = new com.vae.bean.Person();
+        p.setName("生命贰号");
+        p.setAge(22);
+        p.getName();
+        p.getAge();
+    %>
+</body>
+   
+      
+   
+   
