@@ -30,10 +30,9 @@ public class DBUtils {
 		password = prop.getProperty("password");
 
 		try {
-			// ¼ÓÔØMYSQL JDBCÇı¶¯³ÌĞò
+			// åŠ è½½MYSQL JDBCé©±åŠ¨
 			Class.forName(driver);
 			System.out.println("Success loading Mysql Driver!");
-			// Á¬½ÓURLÎª jdbc:mysql//·şÎñÆ÷µØÖ·/Êı¾İ¿âÃû £¬ºóÃæµÄ2¸ö²ÎÊı·Ö±ğÊÇµÇÂ½ÓÃ»§ÃûºÍÃÜÂë
 			return DriverManager.getConnection(url, username, password);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -41,7 +40,7 @@ public class DBUtils {
 		}
 	}
 
-	// ¹Ø±ÕÊı¾İ¿âÁ¬½Ó
+	//å…³é—­æ•°æ®åº“è¿æ¥
 	public void closeDb(Connection conn) {
 		if (conn != null) {
 			try {

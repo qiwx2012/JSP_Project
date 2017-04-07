@@ -59,6 +59,8 @@ public class CollectionServlet extends HttpServlet {
 		dao.save(bean);
 		//保存完数据后查询列表
 		list(request, response);
+		
+		
 	}
 	protected void list(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

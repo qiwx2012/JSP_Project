@@ -1,0 +1,13 @@
+1、JSP标签分类
+       （1）不带属性和标签体
+       （2）不带标签体 带属性
+       （3）  带属性 带标签体
+       
+2、使用标准标签 需要将 jstl.jar 和standard.jar包导入到WebContent的lib目录下
+     （1）在需要使用的jsp页面导入，<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+3、自定义标签有两种实现方式：
+       （1）实现接口 Tag 并实现它的方法
+       （2）继承 类 TagSupport并实现 doEndTag()方法（推荐），此类中有一个 pageContext的内置对象 
+       （3）配置tld文件
+       （4）在需要使用jsp的地方导入， <%@ taglib uri="http://www.abc.com" prefix="h" %>，uri为tld配置文件里配置的uri地址        
